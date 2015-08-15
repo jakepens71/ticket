@@ -16,6 +16,9 @@
     <div id="navbar">
       <ul class="nav navbar-nav">
         <li><%= link_to 'Home', root_path %></li>
+	<% if user_signed_in? && !current_user.admin? %>
+		<li><%= link_to "Create Ticket", new_ticket_path %></li>
+	<% end %>
       </ul>
       <ul class="nav navbar-nav pull-right">
         <% if user_signed_in? %>
