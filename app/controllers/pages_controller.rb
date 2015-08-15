@@ -1,8 +1,6 @@
 class PagesController < ApplicationController
 
-	def index
-		@tickets = Ticket.all
-	end
+	
 
 
 	def getAllUsers

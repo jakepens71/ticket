@@ -4,7 +4,7 @@ class TicketsController < ApplicationController
   # GET /tickets
   # GET /tickets.json
   def index
-    @tickets = Ticket.all
+    @tickets = Ticket.all.where("status = ?", 'F')
   end
 
   # GET /tickets/1
@@ -14,6 +14,7 @@ class TicketsController < ApplicationController
 
   # GET /tickets/new
   def new
+	
     @ticket = Ticket.new
   end
 
@@ -24,7 +25,16 @@ class TicketsController < ApplicationController
   # POST /tickets
   # POST /tickets.json
   def create
-    @ticket = Ticket.new(ticket_params)
+   #gets the current user id from who the ticket belongs to
+    @user = current_user.id
+   #Gets the tickt info from the params and parses the desired information
+    @ticketInfo = ticket_params
+    @title = @ticketInfo["title"]
+    @body = @ticketInfo["body"]
+    @level = @ticketInfo["level"]
+   #Attempts to create new ticket
+    @ticket = Ticket.new(:title => @title.to_s, :body => @body.to_s, :level => @level, :user_id => @user)
+    
 
     respond_to do |format|
       if @ticket.save

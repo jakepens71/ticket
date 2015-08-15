@@ -39,9 +39,9 @@ ActiveRecord::Schema.define(version: 20150815172626) do
     t.string   "body"
     t.integer  "level"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean  "status"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "status",     default: false
   end
 
   create_table "users", force: :cascade do |t|
