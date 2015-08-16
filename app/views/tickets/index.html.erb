@@ -14,6 +14,7 @@
 	      <th>Level</th>
 	      <th>Assigned To</th>
 	      <th colspan="3"></th>
+	      <th>Resolved?</th>
 	    </tr>
 	  </thead>
 
@@ -23,10 +24,17 @@
 		<td><%= ticket.title %></td>
 		<td><%= ticket.body %></td>
 		<td><%= ticket.level %></td>
-		<td><%= ticket.user.name %></td>
+		<% if ticket.user == nil %>
+			<td><%= %></td>
+		<% else %>
+			<td><%= ticket.user.name %></td>
+		<% end %>		
 		<td><%= link_to 'Show', ticket %></td>
 		<td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
 		<td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		<% if current_user.admin? %>
+			<td><%= best_in_place ticket, :status, as: :select, :collection => {"f" => "False", "t" => "True" }, :selected => "False" %>
+		<% end %>
 	      </tr>
 	    <% end %>
 	  </tbody>

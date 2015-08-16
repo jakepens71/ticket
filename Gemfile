@@ -17,6 +17,8 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'devise'
 gem 'bootstrap-sass'
 gem 'squeel'
+gem 'best_in_place', '~> 3.0.1'
+gem 'jquery-ui-rails'
 
 #Used for Heroku
 gem 'rails_12factor', group: :production
