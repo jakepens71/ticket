@@ -10,7 +10,7 @@ class TicketsController < ApplicationController
 
    if !current_user.admin?
 	    @user = current_user.id
-	    @tickets = Ticket.joins(:user).where{( 'status' == 'F') & (user.id == @user)}
+	    @tickets = Ticket.joins(:user).where{( 'status' == 'F') & (user.id == @user) & (user.id == ticket.assigned_to) }
    end
   end
 
@@ -39,8 +39,9 @@ class TicketsController < ApplicationController
     @title = @ticketInfo["title"]
     @body = @ticketInfo["body"]
     @level = @ticketInfo["level"]
+    @assigned_to = @ticketInfo["assigned_to"]
    #Attempts to create new ticket
-    @ticket = Ticket.new(:title => @title.to_s, :body => @body.to_s, :level => @level, :user_id => @user)
+    @ticket = Ticket.new(:title => @title.to_s, :body => @body.to_s, :level => @level, :user_id => @user, :assigned_to => @assigned_to)
     
 
     respond_to do |format|
@@ -80,8 +81,12 @@ class TicketsController < ApplicationController
 
   def getAdmins
 
+	@admins = User.where("admin = ?", "true").all.pluck(:name, :id).join(', ')
+
+	puts @admins
+
 	respond_to do |format|
-		format.json { {'test': 'test' }}
+		format.json { render json: { 'admins': @admins } }
 	end	
   end
 
@@ -93,6 +98,6 @@ class TicketsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ticket_params
-      params.require(:ticket).permit(:title, :body, :level, :user_id)
+      params.require(:ticket).permit(:title, :body, :level, :user_id, :assigned_to)
     end
 end

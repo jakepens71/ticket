@@ -21,8 +21,13 @@
   </div>
   <div class="field">
     <%= f.label :level %><br>
-    <%= f.number_field :level %>
+    <%= f.select :level, [["Low", 1], ["Medium", 2], ["High", 3]] %>
   </div>
+
+  <div class="field">
+    <%= f.label :assigned_to %><br>
+    <%= f.collection_select(:assigned_to, User.where("admin = ?", "true"), :id, :name, :prompt => 'Select') %>
+
   <div class="actions">
     <%= f.submit %>
   </div>
