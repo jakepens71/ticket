@@ -10,7 +10,7 @@ class TicketsController < ApplicationController
 
    if !current_user.admin?
 	    @user = current_user.id
-	    @tickets = Ticket.joins(:user).where{( 'status' == 'F') & (user.id == @user) & (user.id == ticket.assigned_to) }
+	    @tickets = Ticket.where("status = ? and created_id = ?", "false", @user).all
    end
   end
 
@@ -41,7 +41,7 @@ class TicketsController < ApplicationController
     @level = @ticketInfo["level"]
     @assigned_to = @ticketInfo["assigned_to"]
    #Attempts to create new ticket
-    @ticket = Ticket.new(:title => @title.to_s, :body => @body.to_s, :level => @level, :user_id => @user, :assigned_to => @assigned_to)
+    @ticket = Ticket.new(:title => @title.to_s, :body => @body.to_s, :level => @level, :user_id => @assigned_to, :created_id => @user)
     
 
     respond_to do |format|
