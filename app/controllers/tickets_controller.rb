@@ -4,8 +4,14 @@ class TicketsController < ApplicationController
   # GET /tickets
   # GET /tickets.json
   def index
-    @user = current_user.id
-    @tickets = Ticket.joins(:user).where{( 'status' == 'F')}
+   if current_user.admin?
+	
+   end
+
+   if !current_user.admin?
+	    @user = current_user.id
+	    @tickets = Ticket.joins(:user).where{( 'status' == 'F') & (user.id == @user)}
+   end
   end
 
   # GET /tickets/1
