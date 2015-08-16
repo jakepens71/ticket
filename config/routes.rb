@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :tickets
+  
   devise_for :admins
   devise_for :users
 
@@ -10,6 +10,13 @@ Rails.application.routes.draw do
 		get :admin
 		get :getAllUsers
 		get :index
+  	end
+  end
+
+
+  resources :tickets do
+	collection do
+		get :getAdmins
   	end
   end
 
