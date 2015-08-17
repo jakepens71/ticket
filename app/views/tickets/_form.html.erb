@@ -17,10 +17,10 @@
   </div>
   <div class="field">
     <%= f.label :body %><br>
-    <%= f.text_field :body %>
+    <%= f.text_area :body %>
   </div>
   <div class="field">
-    <%= f.label :level %><br>
+    <%= f.label "Severity" %><br>
     <%= f.select :level, [["Low", 1], ["Medium", 2], ["High", 3]] %>
   </div>
 

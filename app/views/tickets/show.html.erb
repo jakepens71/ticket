@@ -11,13 +11,13 @@
 </p>
 
 <p>
-  <strong>Level:</strong>
+  <strong>Severity:</strong>
   <%= @ticket.level %>
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @ticket.user_id %>
+  <strong>Ticket Owner:</strong>
+  <%= @ticket.user.name %>
 </p>
 
 <%= link_to 'Edit', edit_ticket_path(@ticket) %> |
